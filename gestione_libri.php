@@ -69,13 +69,12 @@ function updateBook($mysqli, $id, $titolo, $autore, $anno_pubblicazione, $genere
 // rimuoviamo un libro
 function removeBook($mysqli, $id) {
 
-    if (!$mysqli->query('DELETE FROM libri WHERE id = ' . $id)) {
+    if (!$mysqli->query('DELETE FROM books WHERE id = ' . $id)) {
         echo ($mysqli->connect_error);
     } else {
         echo 'Libro rimosso con successo!';
     }
 }
-
 
 // if else per aggiornare o rimuovere
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
