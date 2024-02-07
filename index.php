@@ -1,10 +1,10 @@
 
-
 <?php
-require_once 'configurazione.php';
-require_once 'gestione_libri.php';
 
-$libri = getAllBooks($mysqli);
+    require_once 'configurazione.php';
+    require_once 'gestione_libri.php';
+
+    $libri = getAllBooks($mysqli);
 
 ?>
 
@@ -17,17 +17,19 @@ $libri = getAllBooks($mysqli);
     <title>My Book_List!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
 </head>
-<body>
+<body class="bg-dark">
     
     <?php require_once 'navbar.php'; ?>
 
     <div class="mt-3 p-4">
-        <div class="text-center">
+        <div class="text-center text-white">
            <h2>Welcome to your Book_List!</h2>
             <p>You can add, edit and delete your personal books right below to keep up with your new interests!</p> 
             
             <button type="button" class="btn btn-success my-3 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="bi bi-plus-circle me-1"></i>
                 Add a new Book!
             </button>
         </div>
@@ -73,55 +75,18 @@ $libri = getAllBooks($mysqli);
             </div>
         </div>
     </div>
-
-    <!-- modale modifica -->
-    <!-- <div class="modal fade" id="modaleUpdate" tabindex="-1" aria-labelledby="modaleUpdate" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5">Modifica i dati</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="gestione_libri.php">
-                        <div class="mb-3">
-                            <label for="titoloLibro" class="form-label">Titolo</label>
-                            <input type="text" class="form-control" aria-describedby="titoloLibro"
-                                name="titoloUp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="autoreLibro" class="form-label">Autore</label>
-                            <input type="text" class="form-control" name="autoreUp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="annoLibro" class="form-label">Anno di pubblicazione</label>
-                            <input type="text" step="1" class="form-control" name="annoUp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="genereLibro" class="form-label">Genere</label>
-                            <input type="text" class="form-control" name="genereUp">
-                        </div>
-                        <div class="modal-footer border-0">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Aggiorna libro</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
    
     <div>
         <!-- <h4 class="text-center my-4">Check your collection</h4> -->
-        <table class="table container table-hover border border-dark border-3">
+        <table id="table-libri" class="table table-dark container w-75 mx-auto table-hover border-4 mt-3">
             <thead>
                 <tr class="text-center">
-                <th scope="col">ID</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Publication year</th>
-                <th scope='col'>Genre</th>
-                <th scope='col'>Edit</th>
+                <th scope="col">#</th>
+                <th scope="col">Titolo</th>
+                <th scope="col">Autore</th>
+                <th scope="col">Anno di pubblicazione</th>
+                <th scope='col'>Genere</th>
+                <th scope='col'>Modifica</th>
                 </tr>
             </thead>
             <tbody class="text-center table-group-divider">
@@ -161,8 +126,8 @@ $libri = getAllBooks($mysqli);
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="annoLibro" class="form-label">Anno di pubblicazione</label>
-                                                    <input type="text" step="1" min="0" max="2024" class="form-control" id="annoLibro" name="annoUp"
-                                                        value="' . $books['anno_pubblicazione'] . ' ">
+                                                    <input type="number" step="1" min="1" max="2024" class="form-control" id="annoLibro" name="annoUp"
+                                                        value="' . $books['anno_pubblicazione'] . '">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="genereLibro" class="form-label">Genere</label>

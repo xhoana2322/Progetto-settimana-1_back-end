@@ -9,8 +9,8 @@
 </head>
 <body>
     
-<nav class="navbar border-bottom border-body bg-success p-2 text-dark bg-opacity-10">
-  <div class="container-fluid">
+<nav class="navbar border-bottom border-body p-2 bg-dark border-bottom border-white mb-5"  data-bs-theme="dark">
+  <div class="container-fluid text-white">
     <a class="navbar-brand" href="#">My Books_list</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
