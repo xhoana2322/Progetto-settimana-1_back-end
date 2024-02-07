@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 // configurazione per la connessione al database
     $config = [
@@ -49,18 +49,9 @@
     // $sql = "INSERT INTO books (title, author, publication_year, genre) 
     //             VALUES ('Shining', 'Stephen King', 1977, 'Horror')";
 
-    // $sql = "INSERT INTO books (title, author, publication_year, genre) 
-    //             VALUES ('Harry Potter', 'J. K. Rowling', 1997, 'Fantasy')";
-
-    // $sql = "INSERT INTO books (title, author, publication_year, genre) 
-    //             VALUES ('Il Signore degli Anelli', 'J. R. R. Tolkien', 1954, 'Fantasy')";
-
-    // $sql = "INSERT INTO books (title, author, publication_year, genre) 
-    //             VALUES ('Notte buia, niente stelle', 'Stephen King', 2010, 'Horror')";
-
     // if(!$mysqli->query($sql)) { 
     //     die($mysqli->connect_error); 
     // }
 
 
-?> -->
+?> 

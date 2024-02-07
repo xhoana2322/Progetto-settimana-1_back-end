@@ -1,9 +1,10 @@
-<?php  
 
-    require_once "configurazione.php";
-    require_once "funzioni.php";
 
-    $book_list = getAllBooks($mysqli);
+<?php
+require_once 'configurazione.php';
+require_once 'gestione_libri.php';
+
+$libri = getAllBooks($mysqli);
 
 ?>
 
@@ -13,13 +14,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Book_List!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     
-<?php include "navbar.php"; ?>
+    <?php require_once 'navbar.php'; ?>
 
     <div class="mt-3 p-4">
         <div class="text-center">
@@ -31,7 +32,7 @@
             </button>
         </div>
 
-            <!-- Modal -->
+            <!-- modale creare libro -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -43,30 +44,29 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="gestione.php">
+                            <form method="POST" action="gestione_libri.php">
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Title</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
+                                    <label for="titoloLibro" class="form-label">Titolo</label>
+                                    <input type="text" class="form-control" id="titoloLibro" aria-describedby="titoloLibro"
+                                        name="titolo">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Author</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1">
+                                    <label for="autoreLibro" class="form-label">Autore</label>
+                                    <input type="text" class="form-control" id="autoreLibro" name="autore">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Publication year</label>
-                                    <input type="number" step="1" class="form-control" id="exampleInputPassword1">
+                                    <label for="annoLibro" class="form-label">Anno di pubblicazione</label>
+                                    <input type="number" step="1" class="form-control" id="annoLibro" name="anno_pubblicazione">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Genre</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1">
+                                    <label for="genereLibro" class="form-label">Genere</label>
+                                    <input type="text" class="form-control" id="genereLibro" name="genere">
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Aggiungi il libro</button>
                                 </div>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -74,13 +74,49 @@
         </div>
     </div>
 
+    <!-- modale modifica -->
+    <div class="modal fade" id="modaleUpdate" tabindex="-1" aria-labelledby="modaleUpdate" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Modifica i dati</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="gestione.php">
+                        <div class="mb-3">
+                            <label for="titoloLibro" class="form-label">Titolo</label>
+                            <input type="text" class="form-control" id="titoloLibro" aria-describedby="titoloLibro"
+                                name="titolo">
+                        </div>
+                        <div class="mb-3">
+                            <label for="autoreLibro" class="form-label">Autore</label>
+                            <input type="text" class="form-control" id="autoreLibro" name="autore">
+                        </div>
+                        <div class="mb-3">
+                            <label for="annoLibro" class="form-label">Anno di pubblicazione</label>
+                            <input type="number" step="1" class="form-control" id="annoLibro" name="anno">
+                        </div>
+                        <div class="mb-3">
+                            <label for="genereLibro" class="form-label">Genere</label>
+                            <input type="text" class="form-control" id="genereLibro" name="genere">
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Aggiorna libro</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
    
     <div>
         <!-- <h4 class="text-center my-4">Check your collection</h4> -->
         <table class="table container table-hover border border-dark border-3">
             <thead>
                 <tr class="text-center">
-                <th scope="col">#</th>
+                <th scope="col">ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Publication year</th>
@@ -90,21 +126,20 @@
             </thead>
             <tbody class="text-center table-group-divider">
                 <?php 
-                    if($book_list){
-                    foreach ($book_list as $key => $books) { 
-                    ?>
-                        <tr>
-                            <th scope="row"><?= $key + 1 ?></th>
-                            <td><?= $books['title'] ?></td>
-                            <td><?= $books['author'] ?></td>
-                            <td><?= $books['publication_year'] ?></td>
-                            <td><?= $books['genre'] ?></td>
+                    foreach ($libri as $key => $books) { 
+                      echo '<tr>
+                            <th scope="row">'. $books['id']. '</th>
+                            <td>' . $books['titolo'] . '</td>
+                            <td>' . $books['autore'] . '</td>
+                            <td>' . $books['anno_pubblicazione'] . '</td>
+                            <td>' . $books['genere'] . '</td>
                             <td>
-                                <button type="button" class="btn btn-primary py-1 px-2"><i class="bi bi-pencil"></i></button>
-                                <button type="button" class="btn btn-danger py-1 px-2"><i class="bi bi-trash"></i></button>                            </td>
+                                <a role="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaleUpdate"><i class="bi bi-pencil"></i></a>
+                                <a role="button" class="btn btn-danger"  href="gestione_libri.php?action=remove&id=' . $books['id'] .'"><i class="bi bi-trash"></i></a>
                             </td>                        
-                        </tr>
-                    <?php } }?>
+                        </tr>' 
+                    ;} 
+                ?>
             </tbody> 
         </table>
     </div>
@@ -113,3 +148,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
+
