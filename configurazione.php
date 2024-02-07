@@ -34,10 +34,10 @@
     // creiamo la tabella
     $sql = 'CREATE TABLE IF NOT EXISTS books (
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        title VARCHAR(150) NOT NULL,
-        author VARCHAR(150) NOT NULL,
-        publication_year INT(4) NOT NULL,
-        genre VARCHAR(150) NOT NULL
+        titolo VARCHAR(150) NOT NULL,
+        autore VARCHAR(150) NOT NULL,
+        anno_pubblicazione INT(4) NOT NULL,
+        genere VARCHAR(150) NOT NULL
     )';
 
     if(!$mysqli->query($sql)) { 
@@ -46,7 +46,7 @@
 
 
     // inseriamo dei dati nuovi
-    // $sql = "INSERT INTO books (title, author, publication_year, genre) 
+    // $sql = "INSERT INTO books (titolo, autore, anno_pubblicazione, genere) 
     //             VALUES ('Shining', 'Stephen King', 1977, 'Horror')";
 
     // if(!$mysqli->query($sql)) { 

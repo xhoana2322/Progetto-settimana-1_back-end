@@ -75,7 +75,7 @@ $libri = getAllBooks($mysqli);
     </div>
 
     <!-- modale modifica -->
-    <div class="modal fade" id="modaleUpdate" tabindex="-1" aria-labelledby="modaleUpdate" aria-hidden="true">
+    <!-- <div class="modal fade" id="modaleUpdate" tabindex="-1" aria-labelledby="modaleUpdate" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -83,23 +83,23 @@ $libri = getAllBooks($mysqli);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="gestione.php">
+                    <form method="POST" action="gestione_libri.php">
                         <div class="mb-3">
                             <label for="titoloLibro" class="form-label">Titolo</label>
-                            <input type="text" class="form-control" id="titoloLibro" aria-describedby="titoloLibro"
-                                name="titolo">
+                            <input type="text" class="form-control" aria-describedby="titoloLibro"
+                                name="titoloUp">
                         </div>
                         <div class="mb-3">
                             <label for="autoreLibro" class="form-label">Autore</label>
-                            <input type="text" class="form-control" id="autoreLibro" name="autore">
+                            <input type="text" class="form-control" name="autoreUp">
                         </div>
                         <div class="mb-3">
                             <label for="annoLibro" class="form-label">Anno di pubblicazione</label>
-                            <input type="number" step="1" class="form-control" id="annoLibro" name="anno">
+                            <input type="text" step="1" class="form-control" name="annoUp">
                         </div>
                         <div class="mb-3">
                             <label for="genereLibro" class="form-label">Genere</label>
-                            <input type="text" class="form-control" id="genereLibro" name="genere">
+                            <input type="text" class="form-control" name="genereUp">
                         </div>
                         <div class="modal-footer border-0">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
@@ -109,7 +109,7 @@ $libri = getAllBooks($mysqli);
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
    
     <div>
         <!-- <h4 class="text-center my-4">Check your collection</h4> -->
@@ -127,18 +127,60 @@ $libri = getAllBooks($mysqli);
             <tbody class="text-center table-group-divider">
                 <?php 
                     foreach ($libri as $key => $books) { 
-                      echo '<tr>
-                            <th scope="row">'. $books['id']. '</th>
-                            <td>' . $books['titolo'] . '</td>
-                            <td>' . $books['autore'] . '</td>
-                            <td>' . $books['anno_pubblicazione'] . '</td>
-                            <td>' . $books['genere'] . '</td>
-                            <td>
-                                <a role="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaleUpdate"><i class="bi bi-pencil"></i></a>
-                                <a role="button" class="btn btn-danger"  href="gestione_libri.php?action=remove&id=' . $books['id'] .'"><i class="bi bi-trash"></i></a>
-                            </td>                        
-                        </tr>' 
-                    ;} 
+                        echo '<tr>
+                                <th scope="row">'. $books['id']. '</th>
+                                <td>' . $books['titolo'] . '</td>
+                                <td>' . $books['autore'] . '</td>
+                                <td>' . $books['anno_pubblicazione'] . '</td>
+                                <td>' . $books['genere'] . '</td>
+                                <td>
+                                    <a role="button" class="btn btn-warning py-1 px-2"  data-bs-toggle="modal" data-bs-target="#modaleUpdate_' . $books['id'] . '"><i class="bi bi-pencil"></i></a>
+                                    <a role="button" class="btn btn-danger py-1 px-2 ms-1"  href="gestione_libri.php?action=remove&id=' . $books['id'] .'"><i class="bi bi-trash"></i></a>
+                                </td>                        
+                            </tr>' ;
+                    
+                        echo '<div class="modal fade" id="modaleUpdate_' . $books['id'] . '" tabindex="-1" aria-labelledby="modaleUpdate" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">Modifica i dati</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="gestione_libri.php">
+                                            <input type="hidden" name="id" value="' . $books['id'] . '">
+                                                <div class="mb-3">
+                                                    <label for="titoloLibro" class="form-label">Titolo</label>
+                                                    <input type="text" class="form-control" id="titoloLibro" aria-describedby="titoloLibro"
+                                                        name="titoloUp" value=" ' . $books['titolo'] . '">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="autoreLibro" class="form-label">Autore</label>
+                                                    <input type="text" class="form-control" id="autoreLibro" name="autoreUp"
+                                                        value="' . $books['autore'] . ' ">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="annoLibro" class="form-label">Anno di pubblicazione</label>
+                                                    <input type="text" step="1" min="0" max="2024" class="form-control" id="annoLibro" name="annoUp"
+                                                        value="' . $books['anno_pubblicazione'] . ' ">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="genereLibro" class="form-label">Genere</label>
+                                                    <input type="text" class="form-control" id="genereLibro" name="genereUp"
+                                                        value=" ' . $books['genere'] . ' ">
+                                                </div>
+                                                <div class="modal-footer border-0">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                                    <button type="submit" class="btn btn-primary" name="action" value="update">Aggiorna libro</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                    
+                    
+                    } 
                 ?>
             </tbody> 
         </table>
